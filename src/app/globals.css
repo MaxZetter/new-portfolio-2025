@@ -1,1 +1,32 @@
-@import "tailwindcss"
+@import "tailwindcss";
+
+body {
+    @apply bg-black;
+  }
+  
+  /* Cursor-following shimmer */
+  .cursor-shimmer {
+    background: radial-gradient(
+      circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(147, 197, 253, 0.25) 0%, /* Soft blue (blue-300), low opacity */
+      rgba(75, 85, 99, 0.9) 50% /* Dark gray (gray-600) */
+    );
+    background-size: 150% 150%; /* Tighter gradient */
+    transition: background-position 0.1s ease; /* Fixed: Use background-position */
+  }
+  
+  /* Subtle shimmer animation */
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+      transform: scale(1);
+    }
+    50% {
+      background-position: 200% 0;
+      transform: scale(1.01); /* Very subtle scale */
+    }
+    100% {
+      background-position: 200% 0;
+      transform: scale(1);
+    }
+  }
