@@ -26,13 +26,18 @@ export default function ContactPage() {
         body: JSON.stringify(data),
       });
 
+      console.log('API response status:', response.status);
+
       if (response.ok) {
         setMessage('Message sent successfully!');
         reset();
       } else {
+        const errorData = await response.json();
+        console.error('API error:', errorData);
         setMessage('Failed to send message. Please try again.');
       }
     } catch (error) {
+      console.error('Fetch error:', error);
       setMessage('An error occurred. Please try again.');
     } finally {
       setIsSending(false);
@@ -44,7 +49,6 @@ export default function ContactPage() {
       <div className="w-full max-w-2xl bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 md:p-8 shadow-lg">
         <h1 className="text-3xl font-bold text-white mb-6 text-center">Contact Me</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          {/* Email Field */}
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-white/80">
               Your Email
@@ -64,8 +68,6 @@ export default function ContactPage() {
             />
             {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>}
           </div>
-
-          {/* Description Field */}
           <div>
             <label htmlFor="description" className="block text-sm font-medium text-white/80">
               Subject
@@ -79,8 +81,6 @@ export default function ContactPage() {
             />
             {errors.description && <p className="mt-1 text-sm text-red-500">{errors.description.message}</p>}
           </div>
-
-          {/* Body Field */}
           <div>
             <label htmlFor="body" className="block text-sm font-medium text-white/80">
               Message
@@ -94,25 +94,23 @@ export default function ContactPage() {
             />
             {errors.body && <p className="mt-1 text-sm text-red-500">{errors.body.message}</p>}
           </div>
-
-          {/* Send Button */}
           <div className="flex justify-center">
             <button
               type="submit"
               disabled={isSending}
-              className={`px-6 py-2 text-xl font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed ${isSending ? 'animate-pulse' : ''}`}
+              className={`min-w-[120px] px-6 py-2 text-xl font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed ${isSending ? 'animate-pulse' : ''}`}
             >
               {isSending ? 'Sending...' : 'Send'}
             </button>
           </div>
         </form>
-
-        {/* Status Message */}
-        {message && (
-          <p className={`mt-4 text-center ${message.includes('successfully') ? 'text-green-500' : 'text-red-500'}`}>
-            {message}
-          </p>
-        )}
+        <div className="min-h-[28px] mt-4 text-center">
+          {message && (
+            <p className={`text-sm ${message.includes('successfully') ? 'text-green-500' : 'text-red-500'}`}>
+              {message}
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );

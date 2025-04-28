@@ -1,8 +1,4 @@
 @import "tailwindcss";
-
-body {
-    @apply bg-black;
-  }
   
   /* Cursor-following shimmer */
   .cursor-shimmer {

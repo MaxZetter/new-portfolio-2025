@@ -31,7 +31,6 @@ interface MenuItemProps {
   onClick: () => void;
 }
 
-
 // Component for individual nav buttons (large screens)
 function NavButton({ item, isActive }: NavButtonProps) {
   const buttonRef = useRef<HTMLAnchorElement>(null);
@@ -106,42 +105,46 @@ export default function Header() {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <header className="bg-transparent shadow-md py-4 px-6 flex justify-between items-center font-pirata-one">
-      {/* Emblem */}
+    <header className="fixed top-0 left-0 w-full bg-transparent shadow-md py-4 px-6 flex justify-between items-center z-10 font-pirata-one">
+      {/* Logo */}
       <Link href="/">
         <Image
           src="/images/placeholder_logo.jpg"
           alt="Logo"
-          width={50} // Adjust based on your logo's aspect ratio
-          height={30} // Matches h-10 (40px)
+          width={50}
+          height={30}
           className="object-contain"
-          priority // Load eagerly for above-the-fold content
+          priority
         />
       </Link>
 
-      {/* Hamburger Icon */}
-      <button
-        className="md:hidden text-gray-300 hover:text-blue-400 focus:outline-none"
-        onClick={toggleMenu}
-        aria-label="Toggle navigation menu"
-      >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isMenuOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'} />
-        </svg>
-      </button>
+      {/* Navigation (Desktop) and Hamburger (Mobile) */}
+      <div className="flex items-center">
+        {/* Desktop Navigation */}
+        <nav className="hidden md:block">
+          <ul className="flex space-x-5">
+            {navItems.map((item) => (
+              <NavButton key={item.path} item={item} isActive={pathname === item.path} />
+            ))}
+          </ul>
+        </nav>
 
-      {/* Navigation */}
-      <nav className="relative">
-        {/* Button List */}
-        <ul className="hidden md:flex space-x-5">
-          {navItems.map((item) => (
-            <NavButton key={item.path} item={item} isActive={pathname === item.path} />
-          ))}
-        </ul>
+        {/* Hamburger Button for Mobile */}
+        <div className="md:hidden">
+          <button
+            onClick={toggleMenu}
+            className="p-3 text-3xl text-white focus:outline-none"
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? '✕' : '☰'}
+          </button>
+        </div>
+      </div>
 
-        {/* Dropdown Menu */}
-        {isMenuOpen && (
-          <ul className="md:hidden absolute right-0 mt-2 w-48 bg-gray-800 shadow-lg rounded-md border border-gray-600 flex flex-col">
+      {/* Dropdown Menu for Mobile */}
+      {isMenuOpen && (
+        <nav className="md:hidden bg-gray-800 shadow-lg border border-gray-600 mt-2 rounded-md absolute left-0 right-0 mx-6">
+          <ul className="flex flex-col">
             {navItems.map((item) => (
               <MenuItem
                 key={item.path}
@@ -151,8 +154,8 @@ export default function Header() {
               />
             ))}
           </ul>
-        )}
-      </nav>
+        </nav>
+      )}
     </header>
   );
 }
