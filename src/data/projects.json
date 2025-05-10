@@ -1,0 +1,16 @@
+[
+    {
+      "repo_name": "project-1",
+      "title": "Project 1",
+      "image": "/images/project-1.png",
+      "description": "A cool project built with Next.js and Tailwind CSS.",
+      "hashtags": ["#NextJS", "#Tailwind", "#WebDev"]
+    },
+    {
+      "repo_name": "project-2",
+      "title": "Project 2",
+      "image": "/images/project-2.png",
+      "description": "A machine learning app using Python and TensorFlow.",
+      "hashtags": ["#ML", "#Python", "#TensorFlow"]
+    }
+]

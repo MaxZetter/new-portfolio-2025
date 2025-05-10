@@ -2,7 +2,7 @@
 import "./globals.css";
 import Header from '../components/Header';
 import { Pirata_One } from 'next/font/google';
-import SplineBackground from "@/components/SplineBackground";
+import SplineBackground from "../components/SplineBackground";
 import { Suspense } from 'react';
 
 const pirata = Pirata_One({

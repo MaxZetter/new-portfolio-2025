@@ -8,10 +8,10 @@ import { useState, useRef } from 'react';
 
 const navItems = [
   { name: 'Home', path: '/' },
+  { name: 'Services', path: '/services' },
+  { name: 'Portfolio', path: '/portfolio' },
   { name: 'About', path: '/about' },
   { name: 'Contact', path: '/contact' },
-  { name: 'Portfolio', path: '/portfolio' },
-  { name: 'Services', path: '/services' },
 ] as const;
 
 // Define prop types explicitly
