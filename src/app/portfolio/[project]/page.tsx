@@ -1,7 +1,7 @@
 // app/portfolio/[project]/page.tsx
 import { getRepositories } from 'src/lib/github';
 import projectsData from 'src/data/projects.json';
-import Link from 'next/link';
+import Link from 'next/link'; // Added for navigation
 import Image from 'next/image';
 import { Octokit } from '@octokit/rest';
 
@@ -93,12 +93,15 @@ export default async function ProjectPage({
 
   return (
     <div
-      className="my-20 mx-15 py-6 min-h-[calc(80vh-40px)] bg-transparent backdrop-blur-md relative"
+      className="my-20 mx-6 py-6 min-h-[calc(80vh-40px)] bg-transparent backdrop-blur-md relative"
       style={{ backdropFilter: 'blur(4px)' }} // Frosted effect with 4px blur
     >
+      <Link href="/portfolio" className="text-white mb-4 inline-block hover:underline z-10">
+        ← Back to Portfolio
+      </Link>
       <div className="grid grid-cols-3 grid-rows-1 gap-6">
         {/* Left 75% for project details */}
-        <div className="col-span-2 backdrop-blur-md p-6 rounded-xl borde shadow-lg">
+        <div className="col-span-2 backdrop-blur-md p-6 rounded-xl border border-gray-200 shadow-lg">
           <h1 className="text-3xl font-bold text-white mb-4">{(projectData || fallbackProjectData).title}</h1>
           {(projectData || fallbackProjectData).image && (
             <Image
@@ -113,12 +116,19 @@ export default async function ProjectPage({
         </div>
         {/* Right 25% for Update feed */}
         <div className="col-span-1 bg-gray-700 my-40 backdrop-blur-md p-6 rounded-xl border shadow-lg">
-          <h2 className="text-2xl font-semibold centre text-white mb-4">Project Feed</h2>
+          <h2 className="text-2xl font-semibold text-center text-white mb-4">Project Feed</h2>
           <ul className="space-y-4">
             {commits.length > 0 ? (
               commits.map((commit: Commit) => (
                 <li key={commit.sha} className="border-l-4 border-blue-500 pl-4">
-                  <p className="text-gray-200">{commit.commit.message}</p>
+                  <a
+                    href={commit.html_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-200 hover:underline"
+                  >
+                    {commit.commit.message}
+                  </a>
                   <p className="text-sm text-gray-500">
                     {new Date(commit.commit.author.date).toLocaleDateString()}
                   </p>
