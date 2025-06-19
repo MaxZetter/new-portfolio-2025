@@ -18,8 +18,8 @@ export default async function Portfolio() {
   const hasProjects = repos.length > 0
 
   return (
-    <div className="container mx-auto py-10">
-      <h1 className="text-4xl font-bold mb-8 text-white">Portfolio</h1>
+    <div className="container mx-auto py-30">
+      <h1 className="text-4xl font-bold mb-8 text-white">Past Projects</h1>
       {hasProjects ? (
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {repos.map((repo: GitHubRepo) => (

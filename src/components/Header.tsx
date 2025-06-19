@@ -8,7 +8,7 @@ import { useState, useRef } from 'react';
 
 const navItems = [
   { name: 'Home', path: '/' },
-  { name: 'Services', path: '/services' },
+  //{ name: 'Services', path: '/services' },
   { name: 'Portfolio', path: '/portfolio' },
   { name: 'About', path: '/about' },
   { name: 'Contact', path: '/contact' },
@@ -104,6 +104,14 @@ export default function Header() {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
+  // Custom isActive logic for Portfolio
+  const getIsActive = (path: string) => {
+    if (path === '/portfolio') {
+      return pathname === '/portfolio' || pathname.startsWith('/portfolio/');
+    }
+    return pathname === path;
+  };
+
   return (
     <header className="fixed top-0 left-0 w-full bg-transparent shadow-md py-4 px-6 flex justify-between items-center z-10 font-pirata-one">
       {/* Logo */}
@@ -124,7 +132,7 @@ export default function Header() {
         <nav className="hidden md:block">
           <ul className="flex space-x-5">
             {navItems.map((item) => (
-              <NavButton key={item.path} item={item} isActive={pathname === item.path} />
+              <NavButton key={item.path} item={item} isActive={getIsActive(item.path)} />
             ))}
           </ul>
         </nav>
@@ -149,7 +157,7 @@ export default function Header() {
               <MenuItem
                 key={item.path}
                 item={item}
-                isActive={pathname === item.path}
+                isActive={getIsActive(item.path)}
                 onClick={() => setIsMenuOpen(false)}
               />
             ))}

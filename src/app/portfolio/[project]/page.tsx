@@ -1,7 +1,7 @@
 // app/portfolio/[project]/page.tsx
 import { getRepositories } from 'src/lib/github';
 import projectsData from 'src/data/projects.json';
-import Link from 'next/link'; // Added for navigation
+import Link from 'next/link';
 import Image from 'next/image';
 import { Octokit } from '@octokit/rest';
 
@@ -101,8 +101,15 @@ export default async function ProjectPage({
       </Link>
       <div className="grid grid-cols-3 grid-rows-1 gap-6">
         {/* Left 75% for project details */}
-        <div className="col-span-2 backdrop-blur-md p-6 rounded-xl border border-gray-200 shadow-lg">
-          <h1 className="text-3xl font-bold text-white mb-4">{(projectData || fallbackProjectData).title}</h1>
+        <div className="col-span-2 text-center backdrop-blur-md p-6 rounded-xl border border-gray-200 shadow-lg">
+          <a
+            href={repo.html_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-3xl font-bold text-white mb-4 hover:underline"
+          >
+            {(projectData || fallbackProjectData).title}
+          </a>
           {(projectData || fallbackProjectData).image && (
             <Image
               src={(projectData || fallbackProjectData).image}
@@ -140,14 +147,7 @@ export default async function ProjectPage({
           </ul>
         </div>
       </div>
-      <a
-        href={repo.html_url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-blue-300 hover:text-blue-400 underline mt-4 inline-block"
-      >
-        View on GitHub
-      </a>
+      {/* Removed "View on GitHub" link as title now serves this purpose */}
     </div>
   );
 }
