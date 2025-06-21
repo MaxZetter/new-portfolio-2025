@@ -8,7 +8,6 @@ import { useState, useRef } from 'react';
 
 const navItems = [
   { name: 'Home', path: '/' },
-  //{ name: 'Services', path: '/services' },
   { name: 'Portfolio', path: '/portfolio' },
   { name: 'About', path: '/about' },
   { name: 'Contact', path: '/contact' },
@@ -113,11 +112,11 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 w-full bg-transparent shadow-md py-4 px-6 flex justify-between items-center z-10 font-pirata-one">
+    <header className="fixed top-0 left-0 w-full bg-transparent shadow-md py-4 px-6 flex items-center justify-between z-10 font-lora">
       {/* Logo */}
       <Link href="/">
         <Image
-          src="/images/placeholder_logo.jpg"
+          src="/images/placeholder_logo.jpg" // Keep this local for now; replace if needed
           alt="Logo"
           width={50}
           height={30}
@@ -126,27 +125,55 @@ export default function Header() {
         />
       </Link>
 
-      {/* Navigation (Desktop) and Hamburger (Mobile) */}
-      <div className="flex items-center">
-        {/* Desktop Navigation */}
-        <nav className="hidden md:block">
-          <ul className="flex space-x-5">
-            {navItems.map((item) => (
-              <NavButton key={item.path} item={item} isActive={getIsActive(item.path)} />
-            ))}
-          </ul>
-        </nav>
+      {/* Navigation (Desktop) - Centered */}
+      <nav className="hidden md:block flex-1">
+        <ul className="flex justify-center space-x-5">
+          {navItems.map((item) => (
+            <NavButton key={item.path} item={item} isActive={getIsActive(item.path)} />
+          ))}
+        </ul>
+      </nav>
 
-        {/* Hamburger Button for Mobile */}
-        <div className="md:hidden">
-          <button
-            onClick={toggleMenu}
-            className="p-3 text-3xl text-white focus:outline-none"
-            aria-label="Toggle menu"
-          >
-            {isMenuOpen ? '✕' : '☰'}
-          </button>
-        </div>
+      {/* Social Links (Desktop) - Right Side */}
+      <div className="hidden md:flex items-center space-x-4">
+        <a href="https://x.com/yourusername" target="_blank" rel="noopener noreferrer">
+          <Image
+            src="https://simpleicons.org/icons/x.svg"
+            alt="X Profile"
+            width={24}
+            height={24}
+            className="hover:opacity-80 transition-opacity bg-white"
+          />
+        </a>
+        <a href="https://github.com/MaxZetter" target="_blank" rel="noopener noreferrer">
+          <Image
+            src="https://simpleicons.org/icons/github.svg"
+            alt="GitHub Profile"
+            width={24}
+            height={24}
+            className="rounded-full hover:opacity-80 transition-opacity bg-white"
+          />
+        </a>
+        <a href="https://linkedin.com/in/MaxZetter" target="_blank" rel="noopener noreferrer">
+          <Image
+            src="/images/linkedin-svgrepo-com.svg"
+            alt="LinkedIn Profile"
+            width={24}
+            height={24}
+            className="hover:opacity-80 rounded-2xl transition-opacity bg-white"
+          />
+        </a>
+      </div>
+
+      {/* Hamburger Button for Mobile */}
+      <div className="md:hidden">
+        <button
+          onClick={toggleMenu}
+          className="p-3 text-3xl text-white focus:outline-none"
+          aria-label="Toggle menu"
+        >
+          {isMenuOpen ? '✕' : '☰'}
+        </button>
       </div>
 
       {/* Dropdown Menu for Mobile */}
@@ -161,6 +188,36 @@ export default function Header() {
                 onClick={() => setIsMenuOpen(false)}
               />
             ))}
+            {/* Social Links in Mobile Menu */}
+            <li className="border-t border-gray-600 mt-2 pt-2 flex justify-around">
+              <a href="https://x.com/yourusername" target="_blank" rel="noopener noreferrer">
+                <Image
+                  src="https://simpleicons.org/icons/x.svg"
+                  alt="X Profile"
+                  width={24}
+                  height={24}
+                  className="rounded-full hover:opacity-80 transition-opacity"
+                />
+              </a>
+              <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">
+                <Image
+                  src="https://simpleicons.org/icons/github.svg"
+                  alt="GitHub Profile"
+                  width={24}
+                  height={24}
+                  className="rounded-full hover:opacity-80 transition-opacity"
+                />
+              </a>
+              <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer">
+                <Image
+                  src="https://simpleicons.org/icons/linkedin.svg"
+                  alt="LinkedIn Profile"
+                  width={24}
+                  height={24}
+                  className="rounded-full hover:opacity-80 transition-opacity"
+                />
+              </a>
+            </li>
           </ul>
         </nav>
       )}
